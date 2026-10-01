@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Sport Unit 3 LO4 - Online Revision Guide</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --accent: #0284c7;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --border: #cbd5e1;
+            --success: #15803d;
+            --warning: #b45309;
+            --error: #b91c1c;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            font-size: 26px;
+        }
+
+        .subtitle {
+            color: #475569;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .user-info {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 6px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .user-info label {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .user-info input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            flex-grow: 1;
+            font-size: 15px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-light);
+        }
+
+        button.secondary {
+            background-color: #475569;
+        }
+
+        button.secondary:hover {
+            background-color: #64748b;
+        }
+
+        button.export-doc {
+            background-color: #0d9488;
+        }
+
+        button.export-doc:hover {
+            background-color: #14b8a6;
+        }
+
+        .section-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        .question-card {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #fff;
+        }
+
+        .question-title {
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .marks-badge {
+            float: right;
+            background-color: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .question-text {
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        table.classification-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        table.classification-table th, table.classification-table td {
+            border: 1px solid var(--border);
+            padding: 10px;
+            text-align: left;
+        }
+
+        table.classification-table th {
+            background-color: #f1f5f9;
+        }
+
+        .feedback-panel {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .feedback-panel.active {
+            display: block;
+        }
+
+        .feedback-panel.attempted {
+            background-color: #f0fdf4;
+            border: 1px solid #86efac;
+        }
+
+        .feedback-panel.unattempted {
+            background-color: #fffbeeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+        }
+
+        .score-display {
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .model-answer {
+            background-color: #ffffff;
+            border-left: 4px solid var(--primary-light);
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .model-answer ul {
+            margin: 5px 0 0 20px;
+            padding: 0;
+        }
+
+        .save-status {
+            font-size: 13px;
+            color: #166534;
+            margin-left: 10px;
+            display: none;
+        }
+
+        @media print {
+            .controls, button, input[type="file"] { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>OCR Sport & Physical Activity (Level 3) - Unit 3 LO4</h1>
+        <div class="subtitle">Online Interactive Revision Guide: Characteristics of Events & Initiatives and Advantages/Disadvantages of Running Them</div>
+        
+        <div class="user-info">
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" placeholder="Enter your full name here..." oninput="autoSave()">
+            <span id="saveStatus" class="save-status">✓ Autosaved</span>
+        </div>
+
+        <div class="controls">
+            <button onclick="markAttemptedQuestions()">Check & Mark Attempted Answers</button>
+            <button class="secondary" onclick="saveToFile()">Save Progress to File</button>
+            <button class="secondary" onclick="document.getElementById('fileInput').click()">Load Progress File</button>
+            <button class="export-doc" onclick="exportToGoogleDoc()">Download as Google Doc</button>
+            <input type="file" id="fileInput" style="display:none" onchange="loadFromFile(event)">
+        </div>
+    </header>
+
+    <div id="quizContainer">
+        <!-- Section 1 -->
+        <div class="section-header">Section 1: Characteristics of Sports Development Events & Initiatives</div>
+
+        <!-- Question 1 -->
+        <div class="question-card" id="card_q1">
+            <div class="question-title">
+                Q1: Initiative vs Event Classification
+                <span class="marks-badge">[4 Marks]</span>
+            </div>
+            <div class="question-text">
+                For each example, identify whether it is a <strong>Sports Development Initiative</strong> or a <strong>Sports Event</strong>.
+            </div>
+            <table class="classification-table">
+                <thead>
+                    <tr>
+                        <th>Example</th>
+                        <th>Initiative</th>
+                        <th>Event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>This Girl Can</td>
+                        <td><input type="radio" name="q1_1" value="Initiative" onchange="autoSave()"></td>
+                        <td><input type="radio" name="q1_1" value="Event" onchange="autoSave()"></td>
+                    </tr>
+                    <tr>
+                        <td>Chance to Shine</td>
+                        <td><input type="radio" name="q1_2" value="Initiative" onchange="autoSave()"></td>
+                        <td><input type="radio" name="q1_2" value="Event" onchange="autoSave()"></td>
+                    </tr>
+                    <tr>
+                        <td>High Five Netball Taster Session</td>
+                        <td><input type="radio" name="q1_3" value="Initiative" onchange="autoSave()"></td>
+                        <td><input type="radio" name="q1_3" value="Event" onchange="autoSave()"></td>
+                    </tr>
+                    <tr>
+                        <td>Swim 21</td>
+                        <td><input type="radio" name="q1_4" value="Initiative" onchange="autoSave()"></td>
+                        <td><input type="radio" name="q1_4" value="Event" onchange="autoSave()"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="feedback-panel" id="feedback_q1"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card" id="card_q2">
+            <div class="question-title">
+                Q2: Planning Considerations - Purpose and Aim
+                <span class="marks-badge">[4 Marks]</span>
+            </div>
+            <div class="question-text">
+                Describe four considerations that need to be planned for under <strong>"Purpose and Aim"</strong> when organising a sports development event.
+            </div>
+            <textarea id="q2_input" placeholder="Type your 4 considerations here..." oninput="autoSave()"></textarea>
+            <div class="feedback-panel" id="feedback_q2"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" id="card_q3">
+            <div class="question-title">
+                Q3: Planning Considerations - Scale
+                <span class="marks-badge">[3 Marks]</span>
+            </div>
+            <div class="question-text">
+                Describe three considerations regarding the <strong>scale</strong> of a sports development event that must be planned for.
+            </div>
+            <textarea id="q3_input" placeholder="Describe 3 scale considerations (e.g., duration, participants, venues, budget)..." oninput="autoSave()"></textarea>
+            <div class="feedback-panel" id="feedback_q3"></div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" id="card_q4">
+            <div class="question-title">
+                Q4: Organisations Involved & Key Pre-Running Factors
+                <span class="marks-badge">[6 Marks]</span>
+            </div>
+            <div class="question-text">
+                a) Suggest <strong>three types of organisations</strong> involved when planning a regional sports development event.<br>
+                b) Describe <strong>three other considerations</strong> (besides Human Resources, Scale, or Purpose) that must be evaluated before running the event.
+            </div>
+            <textarea id="q4_input" placeholder="a) 3 Organisations&#10;b) 3 Other considerations (e.g. costs, health & safety, promotion, accountability)..." oninput="autoSave()"></textarea>
+            <div class="feedback-panel" id="feedback_q4"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" id="card_q5">
+            <div class="question-title">
+                Q5: Promotion Methods & Rationale
+                <span class="marks-badge">[6 Marks]</span>
+            </div>
+            <div class="question-text">
+                a) Describe <strong>three methods</strong> (other than TV advertising) used to promote a sports development initiative.<br>
+                b) Explain <strong>why</strong> it is important to use several different promotion methods.
+            </div>
+            <textarea id="q5_input" placeholder="a) 3 Promotion methods&#10;b) Reasons for using multiple methods..." oninput="autoSave()"></textarea>
+            <div class="feedback-panel" id="feedback_q5"></div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section-header">Section 2: Advantages & Disadvantages of Running / Hosting Events & Initiatives</div>
+
+        <!-- Question 6 -->
+        <div class="question-card" id="card_q6">
+            <div class="question-title">
+                Q6: Characteristics, Advantages & Disadvantages of Major Sporting Events (e.g., Olympics)
+                <span class="marks-badge">[8 Marks]</span>
+            </div>
+            <div class="question-text">
+                Describe the key characteristics of a major global sports event like the Olympics, and evaluate the <strong>advantages</strong> and <strong>disadvantages</strong> of organising and hosting such an event.
+            </div>
+            <textarea id="q6_input" placeholder="Discuss characteristics, host advantages (e.g., regeneration, economy, participation), and host disadvantages (e.g., high cost, wasted facilities, terror risk)..." oninput="autoSave()" style="height:140px;"></textarea>
+            <div class="feedback-panel" id="feedback_q6"></div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card" id="card_q7">
+            <div class="question-title">
+                Q7: Disadvantages of Organising & Running Sports Development Events/Initiatives
+                <span class="marks-badge">[6 Marks]</span>
+            </div>
+            <div class="question-text">
+                Describe six possible <strong>disadvantages or challenges</strong> involved in organising and running a sports development event or initiative.
+            </div>
+            <textarea id="q7_input" placeholder="Describe 6 disadvantages (e.g., upfront costs, time commitment, qualified staff demands, volunteer reliance, risk of failing success measures)..." oninput="autoSave()"></textarea>
+            <div class="feedback-panel" id="feedback_q7"></div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card" id="card_q8">
+            <div class="question-title">
+                Q8: Using Volunteers - Advantages & Disadvantages
+                <span class="marks-badge">[8 Marks]</span>
+            </div>
+            <div class="question-text">
+                Volunteers are vital to sports development. Discuss the <strong>advantages</strong> and <strong>disadvantages</strong> of using volunteers to deliver sports development events/initiatives, and outline benefits an individual volunteer gains.
+            </div>
+            <textarea id="q8_input" placeholder="Discuss advantages (low cost, enthusiasm, local links), disadvantages (training demands, lack of management experience, unreliability), and personal benefits..." oninput="autoSave()" style="height:130px;"></textarea>
+            <div class="feedback-panel" id="feedback_q8"></div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card" id="card_q9">
+            <div class="question-title">
+                Q9: Benefits to Providing Organisations & Sports
+                <span class="marks-badge">[4 Marks]</span>
+            </div>
+            <div class="question-text">
+                Describe four potential <strong>benefits</strong> of sports development for the organization providing it (e.g., NGBs or Local Councils).
+            </div>
+            <textarea id="q9_input" placeholder="Describe 4 benefits to the organisation (e.g. enhanced reputation, increased participation, talent pool development, media/funding growth)..." oninput="autoSave()"></textarea>
+            <div class="feedback-panel" id="feedback_q9"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Expanded Keywords & Synonyms Dictionary for Fuzzy & Alternative Answer Matching
+    const SYNONYMS = {
+        "initiative": ["initiative", "scheme", "campaign", "programme", "program"],
+        "event": ["event", "tournament", "competition", "session", "festival", "gala", "match"],
+        "target": ["target", "demographic", "audience", "group", "participants", "people", "youth", "elderly", "disabilities"],
+        "social": ["social", "community", "deprived", "inner city", "poverty", "inclusion", "cohesion"],
+        "health": ["health", "fitness", "wellbeing", "well-being", "obesity", "active", "lifestyle"],
+        "awareness": ["awareness", "publicity", "promotion", "profile", "recognition", "promote"],
+        "duration": ["duration", "time", "length", "running time", "planning time", "schedule"],
+        "staff": ["staff", "coaches", "volunteers", "workforce", "personnel", "human resource", "marshalls"],
+        "facility": ["facility", "facilities", "venue", "venues", "stadium", "pitch", "hall", "center", "centre"],
+        "cost": ["cost", "budget", "finance", "money", "funding", "investment", "price", "expensive", "capital"],
+        "infrastructure": ["infrastructure", "transport", "parking", "roads", "buses", "trains", "accommodation", "hotels"],
+        "council": ["council", "local authority", "local government", "municipality"],
+        "ngb": ["ngb", "national governing body", "fa", "lta", "england athletics", "rfu", "swimming england"],
+        "lottery": ["sport england", "uk sport", "lottery", "national lottery", "csp", "active partnership"],
+        "club": ["club", "voluntary club", "grassroots", "sports club"],
+        "safety": ["safety", "health and safety", "risk assessment", "first aid", "safeguarding"],
+        "media": ["media", "social media", "newspaper", "radio", "poster", "leaflet", "flyer", "twitter", "facebook", "instagram", "tiktok"],
+        "regeneration": ["regeneration", "rebuilding", "redevelopment", "renewal", "legacy"],
+        "tourism": ["tourism", "tourists", "visitors", "economy", "trade", "jobs", "employment"],
+        "white elephant": ["white elephant", "wasted facilities", "unused venues", "derelict"],
+        "crime": ["crime", "anti-social", "antisocial", "hooliganism", "offending", "delinquency"],
+        "enthusiastic": ["enthusiastic", "passionate", "willing", "motivated", "eager"],
+        "reputation": ["reputation", "image", "status", "profile", "prestige", "brand"]
+    };
+
+    // Helper: Normalize text & check stem / fuzzy match
+    function normalize(str) {
+        return str.toLowerCase().replace(/[^a-z0-9\s]/g, '');
+    }
+
+    function checkFuzzyMatch(userText, key) {
+        const normUser = normalize(userText);
+        const normKey = normalize(key);
+        
+        if (normUser.includes(normKey)) return true;
+
+        // Check synonym dictionary
+        if (SYNONYMS[key]) {
+            for (let syn of SYNONYMS[key]) {
+                if (normUser.includes(syn)) return true;
+            }
+        }
+        return false;
+    }
+
+    // Auto-Save Function
+    function autoSave() {
+        const data = {};
+        data.studentName = document.getElementById('studentName').value;
+        
+        // Save Radios
+        const radioNames = ['q1_1', 'q1_2', 'q1_3', 'q1_4'];
+        radioNames.forEach(name => {
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            if (selected) data[name] = selected.value;
+        });
+
+        // Save Textareas
+        for (let i = 2; i <= 9; i++) {
+            const el = document.getElementById(`q${i}_input`);
+            if (el) data[`q${i}_input`] = el.value;
+        }
+
+        localStorage.setItem('ocr_sport_lo4_revision', JSON.stringify(data));
+
+        const status = document.getElementById('saveStatus');
+        status.style.display = 'inline';
+        setTimeout(() => { status.style.display = 'none'; }, 2000);
+    }
+
+    // Auto-Load on Page Load
+    window.onload = function() {
+        const saved = localStorage.getItem('ocr_sport_lo4_revision');
+        if (saved) {
+            const data = JSON.parse(saved);
+            if (data.studentName) document.getElementById('studentName').value = data.studentName;
+
+            const radioNames = ['q1_1', 'q1_2', 'q1_3', 'q1_4'];
+            radioNames.forEach(name => {
+                if (data[name]) {
+                    const el = document.querySelector(`input[name="${name}"][value="${data[name]}"]`);
+                    if (el) el.checked = true;
+                }
+            });
+
+            for (let i = 2; i <= 9; i++) {
+                if (data[`q${i}_input`]) {
+                    document.getElementById(`q${i}_input`).value = data[`q${i}_input`];
+                }
+            }
+        }
+    };
+
+    // Save state to JSON file download
+    function saveToFile() {
+        autoSave();
+        const saved = localStorage.getItem('ocr_sport_lo4_revision');
+        const blob = new Blob([saved], { type: 'application/json' });
+        const name = (document.getElementById('studentName').value.trim() || 'Student') + '_LO4_Revision_Progress.json';
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = name;
+        a.click();
+    }
+
+    // Load state from JSON file
+    function loadFromFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            localStorage.setItem('ocr_sport_lo4_revision', e.target.result);
+            window.location.reload();
+        };
+        reader.readAsText(file);
+    }
+
+    // MAIN MARKING FUNCTION: Only marks ATTEMPTED questions!
+    function markAttemptedQuestions() {
+        // Q1 Marking
+        markQ1();
+        // Q2-Q9 Marking
+        markTextQuestion(2, 4, [
+            { key: "target", label: "Target Audience / Specific user group" },
+            { key: "social", label: "Meeting social needs (e.g. deprived area/facilities)" },
+            { key: "health", label: "Government initiatives / Healthy lifestyles" },
+            { key: "awareness", label: "Raising public awareness / participation access" }
+        ], "Criteria includes target audience, social needs, healthy lifestyles, and raising public awareness.");
+
+        markTextQuestion(3, 3, [
+            { key: "duration", label: "Duration / Planning & running time" },
+            { key: "target", label: "Target group / Participant volume" },
+            { key: "staff", label: "Staffing & volunteer requirements" },
+            { key: "facility", label: "Facilities, venue & equipment" },
+            { key: "cost", label: "Budget & financial costs" },
+            { key: "infrastructure", label: "Infrastructure (transport, parking, lodging)" }
+        ], "Criteria includes duration, participant numbers, staffing/volunteers, venues/equipment, budget, and transport infrastructure.");
+
+        markTextQuestion(4, 6, [
+            { key: "council", label: "Local Councils / Local Authorities" },
+            { key: "ngb", label: "National Governing Bodies (e.g. FA, LTA)" },
+            { key: "lottery", label: "Sport England / CSPs" },
+            { key: "club", label: "Voluntary Sports Clubs / Grassroots" },
+            { key: "cost", label: "Costs & Funding considerations" },
+            { key: "safety", label: "Health & Safety / Risk Assessment" },
+            { key: "media", label: "Promotion & Advertising methods" },
+            { key: "duration", label: "Time & Duration" }
+        ], "Criteria includes NGBs, Councils, Sport England, Costs/Funding, Health & Safety, Promotion, and Duration.");
+
+        markTextQuestion(5, 6, [
+            { key: "media", label: "Promotion methods (Social media, local paper, radio, posters, leaflets)" },
+            { key: "target", label: "Reaching varied target audiences/demographics" },
+            { key: "cost", label: "Cost variations (Social media cheap vs TV expensive)" },
+            { key: "awareness", label: "Widespread reach / Maximising participation" }
+        ], "Criteria includes social media, local press, radio, posters, reaching varied demographics, and cost efficiency.");
+
+        markTextQuestion(6, 8, [
+            { key: "duration", label: "Characteristics: One-off global scale, multiple NGBs/agencies" },
+            { key: "regeneration", label: "Advantage: Urban regeneration & facility legacy" },
+            { key: "tourism", label: "Advantage: Tourism, economic boost & job creation" },
+            { key: "health", label: "Advantage: Raised national health & feel-good factor" },
+            { key: "cost", label: "Disadvantage: High hosting costs & financial risk" },
+            { key: "white elephant", label: "Disadvantage: Unused facilities / White elephants" },
+            { key: "crime", label: "Disadvantage: Terror risk, security, or regional inequality" }
+        ], "Characteristics: Global scale, multi-agency. Advantages: Regeneration, tourism, health/morale. Disadvantages: Huge costs, wasted venues, security risks.");
+
+        markTextQuestion(7, 6, [
+            { key: "cost", label: "Upfront & ongoing financial costs/investments" },
+            { key: "duration", label: "Significant time commitment to plan and deliver" },
+            { key: "staff", label: "Need for qualified staff & heavy volunteer reliance" },
+            { key: "awareness", label: "Accountability pressure & funding loss risk" },
+            { key: "target", label: "Risk of failed success measures / low participation" }
+        ], "Disadvantages include high costs, long planning times, reliance on volunteers, specialist coaching needs, accountability pressure, and low turnout risks.");
+
+        markTextQuestion(8, 8, [
+            { key: "cost", label: "Volunteer Advantage: Low cost / saves financial resources" },
+            { key: "enthusiastic", label: "Volunteer Advantage: Highly motivated & local community pride" },
+            { key: "staff", label: "Volunteer Disadvantage: High training & supervision required" },
+            { key: "duration", label: "Volunteer Disadvantage: Lack of contract / risk of drop-out" },
+            { key: "awareness", label: "Individual Benefit: Increased confidence, skills, & achievement" }
+        ], "Advantages: Low cost, enthusiasm, local links. Disadvantages: Supervision/training demands, unreliability. Individual Benefits: Confidence, skills, networking.");
+
+        markTextQuestion(9, 4, [
+            { key: "reputation", label: "Enhanced organizational reputation & profile" },
+            { key: "target", label: "Increased participation numbers & grassroots growth" },
+            { key: "ngb", label: "Expanded talent pool for elite success" },
+            { key: "cost", label: "Increased sponsorship & funding opportunities" }
+        ], "Benefits include enhanced reputation, increased participation, talent pool growth, higher attendances, and increased funding/sponsorship.");
+    }
+
+    function markQ1() {
+        const panel = document.getElementById('feedback_q1');
+        const correctAnswers = { 'q1_1': 'Initiative', 'q1_2': 'Initiative', 'q1_3': 'Event', 'q1_4': 'Initiative' };
+        
+        let attemptedCount = 0;
+        let score = 0;
+
+        for (let key in correctAnswers) {
+            const selected = document.querySelector(`input[name="${key}"]:checked`);
+            if (selected) {
+                attemptedCount++;
+                if (selected.value === correctAnswers[key]) score++;
+            }
+        }
+
+        if (attemptedCount === 0) {
+            panel.className = 'feedback-panel unattempted active';
+            panel.innerHTML = '<strong>Status: Unattempted</strong><br>Answer this question to view marking feedback and model answer.';
+            return;
+        }
+
+        panel.className = 'feedback-panel attempted active';
+        panel.innerHTML = `
+            <div class="score-display">Score: ${score} / 4 Marks</div>
+            <div>${score === 4 ? 'Excellent! All classifications correct.' : 'Review your classifications against the official answer scheme below:'}</div>
+            <div class="model-answer">
+                <strong>Official Model Answer Scheme:</strong>
+                <ul>
+                    <li>This Girl Can: <strong>Initiative</strong></li>
+                    <li>Chance to Shine: <strong>Initiative</strong></li>
+                    <li>High Five Netball Taster Session: <strong>Event</strong></li>
+                    <li>Swim 21: <strong>Initiative</strong></li>
+                </ul>
+            </div>
+        `;
+    }
+
+    function markTextQuestion(qNum, maxMarks, criteriaList, summaryModelAnswer) {
+        const input = document.getElementById(`q${qNum}_input`).value.trim();
+        const panel = document.getElementById(`feedback_q${qNum}`);
+
+        if (input.length === 0) {
+            panel.className = 'feedback-panel unattempted active';
+            panel.innerHTML = '<strong>Status: Unattempted</strong><br>This question has not been attempted yet. Model answer is hidden.';
+            return;
+        }
+
+        let score = 0;
+        let matchedCriteria = [];
+
+        criteriaList.forEach(item => {
+            if (checkFuzzyMatch(input, item.key)) {
+                score++;
+                matchedCriteria.push(item.label);
+            }
+        });
+
+        if (score > maxMarks) score = maxMarks;
+
+        panel.className = 'feedback-panel attempted active';
+        panel.innerHTML = `
+            <div class="score-display">Awarded Marks: ${score} / ${maxMarks} Marks</div>
+            <div><strong>Key Criteria Identified in Your Answer:</strong></div>
+            <ul>
+                ${matchedCriteria.length > 0 ? matchedCriteria.map(c => `<li>✓ ${c}</li>`).join('') : '<li>No specific mark scheme key terms detected. Ensure you expand on specialist terms.</li>'}
+            </ul>
+            <div class="model-answer">
+                <strong>Official Mark Scheme Guidance & Model Answer:</strong><br>
+                ${summaryModelAnswer}
+            </div>
+        `;
+    }
+
+    // DOWNLOAD AS GOOGLE DOC (.doc format compatible with Google Drive / Docs)
+    function exportToGoogleDoc() {
+        const studentName = document.getElementById('studentName').value.trim() || 'Student';
+        const dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        let html = `
+            <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+            <head>
+                <title>OCR Sport Unit 3 LO4 Revision Guide - ${studentName}</title>
+                <style>
+                    body { font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; color: #1e293b; }
+                    h1 { color: #1e3a8a; font-size: 18pt; text-align: center; margin-bottom: 5px; }
+                    .header-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                    .header-table td { padding: 8px; border: 1px solid #cbd5e1; background-color: #f8fafc; }
+                    .section-head { background-color: #1e3a8a; color: white; padding: 6px 10px; font-weight: bold; font-size: 13pt; margin-top: 20px; }
+                    .q-box { border: 1px solid #94a3b8; margin: 15px 0; padding: 12px; }
+                    .q-title { font-weight: bold; color: #1e3a8a; font-size: 12pt; }
+                    .student-ans { background-color: #f1f5f9; padding: 8px; margin: 8px 0; border-left: 3px solid #3b82f6; font-style: italic; }
+                    .model-box { background-color: #f0fdf4; padding: 8px; margin-top: 8px; border-left: 3px solid #22c55e; font-size: 10pt; }
+                    .teacher-notes { border: 1px dashed #64748b; padding: 10px; margin-top: 10px; background-color: #fffbeeb; }
+                </style>
+            </head>
+            <body>
+                <h1>OCR Sport & Physical Activity (Level 3)</h1>
+                <h2 style="text-align:center; color:#475569; font-size:13pt;">Unit 3 LO4: Events & Initiatives Revision Guide</h2>
+                
+                <table class="header-table">
+                    <tr>
+                        <td><strong>Student Name:</strong> ${studentName}</td>
+                        <td><strong>Date Generated:</strong> ${dateStr}</td>
+                    </tr>
+                </table>
+        `;
+
+        // Loop over questions to populate export doc
+        for (let i = 1; i <= 9; i++) {
+            if (i === 1) {
+                html += `
+                    <div class="section-head">Section 1: Characteristics of Sports Development Events & Initiatives</div>
+                    <div class="q-box">
+                        <div class="q-title">Q1: Initiative vs Event Classification [4 Marks]</div>
+                        <div class="student-ans">
+                            <strong>Submitted Answers:</strong><br>
+                            This Girl Can: ${getRadioValue('q1_1')}<br>
+                            Chance to Shine: ${getRadioValue('q1_2')}<br>
+                            High Five Netball Taster Session: ${getRadioValue('q1_3')}<br>
+                            Swim 21: ${getRadioValue('q1_4')}
+                        </div>
+                        <div class="model-box">
+                            <strong>Official Answers:</strong> This Girl Can (Initiative), Chance to Shine (Initiative), High Five Netball Taster Session (Event), Swim 21 (Initiative).
+                        </div>
+                    </div>
+                `;
+            } else {
+                if (i === 6) {
+                    html += `<div class="section-head">Section 2: Advantages & Disadvantages of Running / Hosting Events & Initiatives</div>`;
+                }
+                const card = document.getElementById(`card_q${i}`);
+                const qTitle = card.querySelector('.question-title').innerText;
+                const userAns = document.getElementById(`q${i}_input`).value.trim();
+                const isAttempted = userAns.length > 0;
+
+                html += `
+                    <div class="q-box">
+                        <div class="q-title">${qTitle}</div>
+                        <div class="student-ans">
+                            <strong>Student Answer:</strong><br>
+                            ${isAttempted ? userAns.replace(/\n/g, '<br>') : '<em>[Question Not Attempted]</em>'}
+                        </div>
+                        ${isAttempted ? `
+                            <div class="model-box">
+                                <strong>Mark Scheme Guidance:</strong><br>
+                                ${getQSummary(i)}
+                            </div>
+                        ` : `
+                            <div style="color:#b91c1c; font-style:italic;">Model answer hidden because question was unattempted.</div>
+                        `}
+                        <div class="teacher-notes">
+                            <strong>Teacher / Assessor Feedback:</strong>
+                            <br><br>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        html += `</body></html>`;
+
+        const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${studentName.replace(/\s+/g, '_')}_LO4_Revision_Guide.doc`;
+        a.click();
+    }
+
+    function getRadioValue(name) {
+        const sel = document.querySelector(`input[name="${name}"]:checked`);
+        return sel ? sel.value : 'Not Answered';
+    }
+
+    function getQSummary(num) {
+        const summaries = {
+            2: "Target audience/demographics, meeting specific social needs (e.g. inner-city facilities), government health campaigns, and raising public awareness.",
+            3: "Planning for event duration, participant volume, staffing/volunteers needed, venues/equipment, overall budget, and infrastructure (transport, lodging).",
+            4: "Organisations: Local Councils, NGBs, Sport England, CSPs, Voluntary Clubs. Planning: Costs & Funding, Health & Safety/Risk Assessments, Promotion, Time/Duration.",
+            5: "Methods: Social media, local press, radio, posters, leaflets. Reasons: Reaching varied demographics, cost efficiency (cheap social media vs expensive TV), broad reach.",
+            6: "Characteristics: One-off global scale, multi-agency. Host Advantages: Urban regeneration, tourism/economic growth, health boost. Disadvantages: High costs, wasted venues ('white elephants'), terror/security risks.",
+            7: "Disadvantages: Financial outlay/risk, long planning time, reliance on qualified staff & volunteers, accountability pressure, risk of low turnout/failed targets.",
+            8: "Advantages: Low cost, enthusiasm, local links. Disadvantages: Heavy training demands, lack of event management experience, non-contractual drop-out risk. Personal benefits: Confidence, skills, sense of achievement.",
+            9: "Benefits to Organisation: Enhanced reputation, increased participation, talent pool growth, higher attendances, increased funding & sponsorship."
+        };
+        return summaries[num] || "";
+    }
+</script>
+
+</body>
+</html>
