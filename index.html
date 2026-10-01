@@ -155,7 +155,7 @@
 
         textarea {
             width: 100%;
-            height: 100px;
+            height: 110px;
             padding: 10px;
             border: 1px solid var(--border);
             border-radius: 4px;
@@ -243,7 +243,7 @@
         
         <div class="user-info">
             <label for="studentName">Student Name:</label>
-            <input type="text" id="studentName" placeholder="Enter your full name here..." oninput="autoSave()">
+            <input type="text" id="studentName" placeholder="Enter full name..." oninput="autoSave()">
             <span id="saveStatus" class="save-status">✓ Autosaved</span>
         </div>
 
@@ -312,7 +312,7 @@
             <div class="question-text">
                 Describe four considerations that need to be planned for under <strong>"Purpose and Aim"</strong> when organising a sports development event.
             </div>
-            <textarea id="q2_input" placeholder="Type your 4 considerations here..." oninput="autoSave()"></textarea>
+            <textarea id="q2_input" placeholder="Type your answer here..." oninput="autoSave()"></textarea>
             <div class="feedback-panel" id="feedback_q2"></div>
         </div>
 
@@ -325,7 +325,7 @@
             <div class="question-text">
                 Describe three considerations regarding the <strong>scale</strong> of a sports development event that must be planned for.
             </div>
-            <textarea id="q3_input" placeholder="Describe 3 scale considerations (e.g., duration, participants, venues, budget)..." oninput="autoSave()"></textarea>
+            <textarea id="q3_input" placeholder="Type your answer here..." oninput="autoSave()"></textarea>
             <div class="feedback-panel" id="feedback_q3"></div>
         </div>
 
@@ -339,7 +339,7 @@
                 a) Suggest <strong>three types of organisations</strong> involved when planning a regional sports development event.<br>
                 b) Describe <strong>three other considerations</strong> (besides Human Resources, Scale, or Purpose) that must be evaluated before running the event.
             </div>
-            <textarea id="q4_input" placeholder="a) 3 Organisations&#10;b) 3 Other considerations (e.g. costs, health & safety, promotion, accountability)..." oninput="autoSave()"></textarea>
+            <textarea id="q4_input" placeholder="Type your answer here..." oninput="autoSave()"></textarea>
             <div class="feedback-panel" id="feedback_q4"></div>
         </div>
 
@@ -353,7 +353,7 @@
                 a) Describe <strong>three methods</strong> (other than TV advertising) used to promote a sports development initiative.<br>
                 b) Explain <strong>why</strong> it is important to use several different promotion methods.
             </div>
-            <textarea id="q5_input" placeholder="a) 3 Promotion methods&#10;b) Reasons for using multiple methods..." oninput="autoSave()"></textarea>
+            <textarea id="q5_input" placeholder="Type your answer here..." oninput="autoSave()"></textarea>
             <div class="feedback-panel" id="feedback_q5"></div>
         </div>
 
@@ -369,7 +369,7 @@
             <div class="question-text">
                 Describe the key characteristics of a major global sports event like the Olympics, and evaluate the <strong>advantages</strong> and <strong>disadvantages</strong> of organising and hosting such an event.
             </div>
-            <textarea id="q6_input" placeholder="Discuss characteristics, host advantages (e.g., regeneration, economy, participation), and host disadvantages (e.g., high cost, wasted facilities, terror risk)..." oninput="autoSave()" style="height:140px;"></textarea>
+            <textarea id="q6_input" placeholder="Type your answer here..." oninput="autoSave()" style="height:140px;"></textarea>
             <div class="feedback-panel" id="feedback_q6"></div>
         </div>
 
@@ -382,7 +382,7 @@
             <div class="question-text">
                 Describe six possible <strong>disadvantages or challenges</strong> involved in organising and running a sports development event or initiative.
             </div>
-            <textarea id="q7_input" placeholder="Describe 6 disadvantages (e.g., upfront costs, time commitment, qualified staff demands, volunteer reliance, risk of failing success measures)..." oninput="autoSave()"></textarea>
+            <textarea id="q7_input" placeholder="Type your answer here..." oninput="autoSave()"></textarea>
             <div class="feedback-panel" id="feedback_q7"></div>
         </div>
 
@@ -395,7 +395,7 @@
             <div class="question-text">
                 Volunteers are vital to sports development. Discuss the <strong>advantages</strong> and <strong>disadvantages</strong> of using volunteers to deliver sports development events/initiatives, and outline benefits an individual volunteer gains.
             </div>
-            <textarea id="q8_input" placeholder="Discuss advantages (low cost, enthusiasm, local links), disadvantages (training demands, lack of management experience, unreliability), and personal benefits..." oninput="autoSave()" style="height:130px;"></textarea>
+            <textarea id="q8_input" placeholder="Type your answer here..." oninput="autoSave()" style="height:140px;"></textarea>
             <div class="feedback-panel" id="feedback_q8"></div>
         </div>
 
@@ -408,7 +408,7 @@
             <div class="question-text">
                 Describe four potential <strong>benefits</strong> of sports development for the organization providing it (e.g., NGBs or Local Councils).
             </div>
-            <textarea id="q9_input" placeholder="Describe 4 benefits to the organisation (e.g. enhanced reputation, increased participation, talent pool development, media/funding growth)..." oninput="autoSave()"></textarea>
+            <textarea id="q9_input" placeholder="Type your answer here..." oninput="autoSave()"></textarea>
             <div class="feedback-panel" id="feedback_q9"></div>
         </div>
     </div>
@@ -442,7 +442,6 @@
         "reputation": ["reputation", "image", "status", "profile", "prestige", "brand"]
     };
 
-    // Helper: Normalize text & check stem / fuzzy match
     function normalize(str) {
         return str.toLowerCase().replace(/[^a-z0-9\s]/g, '');
     }
@@ -453,7 +452,6 @@
         
         if (normUser.includes(normKey)) return true;
 
-        // Check synonym dictionary
         if (SYNONYMS[key]) {
             for (let syn of SYNONYMS[key]) {
                 if (normUser.includes(syn)) return true;
@@ -462,19 +460,16 @@
         return false;
     }
 
-    // Auto-Save Function
     function autoSave() {
         const data = {};
         data.studentName = document.getElementById('studentName').value;
         
-        // Save Radios
         const radioNames = ['q1_1', 'q1_2', 'q1_3', 'q1_4'];
         radioNames.forEach(name => {
             const selected = document.querySelector(`input[name="${name}"]:checked`);
             if (selected) data[name] = selected.value;
         });
 
-        // Save Textareas
         for (let i = 2; i <= 9; i++) {
             const el = document.getElementById(`q${i}_input`);
             if (el) data[`q${i}_input`] = el.value;
@@ -487,7 +482,6 @@
         setTimeout(() => { status.style.display = 'none'; }, 2000);
     }
 
-    // Auto-Load on Page Load
     window.onload = function() {
         const saved = localStorage.getItem('ocr_sport_lo4_revision');
         if (saved) {
@@ -510,7 +504,6 @@
         }
     };
 
-    // Save state to JSON file download
     function saveToFile() {
         autoSave();
         const saved = localStorage.getItem('ocr_sport_lo4_revision');
@@ -522,7 +515,6 @@
         a.click();
     }
 
-    // Load state from JSON file
     function loadFromFile(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -534,11 +526,8 @@
         reader.readAsText(file);
     }
 
-    // MAIN MARKING FUNCTION: Only marks ATTEMPTED questions!
     function markAttemptedQuestions() {
-        // Q1 Marking
         markQ1();
-        // Q2-Q9 Marking
         markTextQuestion(2, 4, [
             { key: "target", label: "Target Audience / Specific user group" },
             { key: "social", label: "Meeting social needs (e.g. deprived area/facilities)" },
@@ -680,7 +669,6 @@
         `;
     }
 
-    // DOWNLOAD AS GOOGLE DOC (.doc format compatible with Google Drive / Docs)
     function exportToGoogleDoc() {
         const studentName = document.getElementById('studentName').value.trim() || 'Student';
         const dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -714,7 +702,6 @@
                 </table>
         `;
 
-        // Loop over questions to populate export doc
         for (let i = 1; i <= 9; i++) {
             if (i === 1) {
                 html += `
